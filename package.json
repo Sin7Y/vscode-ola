@@ -1,0 +1,43 @@
+{
+  "name": "ola",
+  "displayName": "vsocde-ola",
+  "description": "ola lang vscode highlighting extension",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.74.0"
+  },
+  "repository": "https: //github.com/Sin7Y/vscode-ola",
+  "categories": [
+    "Programming Languages"
+  ],
+  "license": "Apache License",
+  "publisher": "Sin7Y",
+  "contributes": {
+    "languages": [
+      {
+        "id": "ola",
+        "aliases": [
+          "Ola",
+          "ola-lang"
+        ],
+        "extensions": [
+          ".ola"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "snippets": [
+      {
+        "language": "ola",
+        "path": "./snippets/ola.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "ola",
+        "scopeName": "source.ola",
+        "path": "./syntaxes/ola.tmLanguage.json"
+      }
+    ]
+  }
+}
