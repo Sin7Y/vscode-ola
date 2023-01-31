@@ -1,29 +1,236 @@
 {
-	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"fileTypes": [
+		"ola"
+	],
 	"name": "ola",
 	"patterns": [
 		{
-			"include": "#keywords"
+			"include": "#comment"
 		},
 		{
-			"include": "#strings"
+			"include": "#operator"
+		},
+		{
+			"include": "#control"
+		},
+		{
+			"include": "#constant"
+		},
+		{
+			"include": "#number"
+		},
+		{
+			"include": "#type"
+		},
+		{
+			"include": "#declaration"
+		},
+		{
+			"include": "#function-call"
+		},
+		{
+			"include": "#punctuation"
 		}
 	],
 	"repository": {
-		"keywords": {
-			"patterns": [{
-				"name": "keyword.control.ola",
-				"match": "\\b(if|while|for|return)\\b"
-			}]
-		},
-		"strings": {
-			"name": "string.quoted.double.ola",
-			"begin": "\"",
-			"end": "\"",
+		"comment": {
 			"patterns": [
 				{
-					"name": "constant.character.escape.ola",
-					"match": "\\\\."
+					"include": "#comment-line"
+				},
+				{
+					"include": "#comment-block"
+				}
+			]
+		},
+		"comment-line": {
+			"match": "(?<!tp:)//.*?$",
+			"name": "comment.line.ola"
+		},
+		"comment-block": {
+			"begin": "/\\*",
+			"end": "\\*/",
+			"name": "comment.block.ola"
+		},
+		"operator": {
+			"patterns": [
+				{
+					"include": "#operator-logic"
+				},
+				{
+					"include": "#operator-arithmetic"
+				},
+				{
+					"include": "#operator-binary"
+				},
+				{
+					"include": "#operator-assignment"
+				}
+			]
+		},
+		"operator-logic": {
+			"match": "(==|<(?!<)|<=|>(?!>)|>=|\\&\\&|\\|\\||\\:(?!=)|\\?)",
+			"name": "keyword.operator.logic.ola"
+		},
+		"operator-arithmetic": {
+			"match": "(\\+|\\-|\\/|\\*)",
+			"name": "keyword.operator.arithmetic.ola"
+		},
+		"operator-binary": {
+			"match": "(\\^|\\&|\\||<<|>>)",
+			"name": "keyword.operator.binary.ola"
+		},
+		"operator-assignment": {
+			"match": "(\\:?=)",
+			"name": "keyword.operator.assignment.ola"
+		},
+		"control": {
+			"patterns": [
+				{
+					"include": "#control-flow"
+				},
+				{
+					"include": "#control-import"
+				}
+			]
+		},
+		"control-flow": {
+			"match": "\\b(if|else|for|break|continue|return?)\\b",
+			"name": "keyword.control.flow.ola"
+		},
+		"control-import": {
+			"match": "\\b(import)\\b",
+			"name": "keyword.control.import.ola"
+		},
+		"constant": {
+			"patterns": [
+				{
+					"include": "#constant-boolean"
+				}
+			]
+		},
+		"constant-boolean": {
+			"match": "\\b(true|false)\\b",
+			"name": "constant.language.boolean.ola"
+		},
+		"number": {
+			"patterns": [
+				{
+					"include": "#number-decimal"
+				},
+				{
+					"include": "#number-hex"
+				}
+			]
+		},
+		"number-decimal": {
+			"match": "\\b(\\d+(\\.\\d+)?)\\b",
+			"name": "constant.numeric.decimal.ola"
+		},
+		"number-hex": {
+			"match": "\\b(0[xX][a-fA-F0-9]+)\\b",
+			"name": "constant.numeric.hexadecimal.ola"
+		},
+		"type": {
+			"patterns": [
+				{
+					"include": "#type-primitive"
+				}
+			]
+		},
+		"type-primitive": {
+			"match": "\\b(u\\d*|bool|field)\\b",
+			"name": "support.type.primitive.ola"
+		},
+		"declaration": {
+			"patterns": [
+				{
+					"include": "#declaration-contract"
+				},
+				{
+					"include": "#declaration-struct"
+				},
+				{
+					"include": "#declaration-enum"
+				},
+				{
+					"include": "#declaration-function"
+				}
+			]
+		},
+		"declaration-contract": {
+			"patterns": [
+				{
+					"match": "\\b(contract)(\\s+([A-Za-z_]\\w*))?\\b",
+					"captures": {
+						"1": {
+							"name": "storage.type.contract.ola"
+						},
+						"3": {
+							"name": "entity.name.type.contract.ola"
+						}
+					}
+				}
+			]
+		},
+		"declaration-struct": {
+			"match": "\\b(struct)(\\s+([A-Za-z_]\\w*))?\\b",
+			"captures": {
+				"1": {
+					"name": "storage.type.struct.ola"
+				},
+				"3": {
+					"name": "entity.name.type.struct.ola"
+				}
+			}
+		},
+		"declaration-enum": {
+			"match": "\\b(enum)(\\s+([A-Za-z_]\\w*))?\\b",
+			"captures": {
+				"1": {
+					"name": "storage.type.enum.ola"
+				},
+				"3": {
+					"name": "entity.name.type.enum.ola"
+				}
+			}
+		},
+		"declaration-function": {
+			"patterns": [
+				{
+					"match": "\\b(fn)\\s+([A-Za-z_]\\w*)\\b",
+					"captures": {
+						"1": {
+							"name": "storage.type.function.ola"
+						},
+						"2": {
+							"name": "entity.name.function.ola"
+						}
+					}
+				}
+			]
+		},
+		"function-call": {
+			"match": "\\b([A-Za-z_]\\w*)\\s*\\(",
+			"captures": {
+				"1": {
+					"name": "entity.name.function.ola"
+				}
+			}
+		},
+		"punctuation": {
+			"patterns": [
+				{
+					"match": ";",
+					"name": "punctuation.terminator.statement.ola"
+				},
+				{
+					"match": "\\.",
+					"name": "punctuation.accessor.ola"
+				},
+				{
+					"match": ",",
+					"name": "punctuation.separator.ola"
 				}
 			]
 		}

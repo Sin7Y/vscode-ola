@@ -24,7 +24,7 @@ npm install
 vsce package
 code --install-extension ola*.vsix
 ```
-
+**Note：vsce only needs to be installed globally once**
 ## How to publish?
 
 https://code.visualstudio.com/api/working-with-extensions/publishing-extension
