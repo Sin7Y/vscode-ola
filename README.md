@@ -7,8 +7,12 @@ This extension provides syntax highlighting for `ola` language.
 ### Syntax Highlighting
 
 
+![syntax](https://github.com/Sin7Y/vscode-ola/blob/main/syntaxes/syntax-highlighting.png?raw=true)
+
 ### Snippets
 
+
+![snippets](https://github.com/Sin7Y/vscode-ola/blob/main/snippets/snippets.gif?raw=true)
 
 ## Uasge
 
