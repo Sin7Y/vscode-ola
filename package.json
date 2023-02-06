@@ -1,8 +1,8 @@
 {
   "name": "ola",
-  "displayName": "vsocde-ola",
+  "displayName": "ola",
   "description": "ola lang vscode highlighting extension",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "engines": {
     "vscode": "^1.74.0"
   },
@@ -10,12 +10,17 @@
   "categories": [
     "Programming Languages"
   ],
+  "icon": "images/ola.jpg",
   "license": "Apache License",
   "publisher": "Sin7Y",
   "contributes": {
     "languages": [
       {
         "id": "ola",
+        "icon": {
+          "dark": "./images/ola-icon.svg",
+          "light": "./images/ola-icon.svg"
+        },
         "aliases": [
           "Ola",
           "ola-lang"
