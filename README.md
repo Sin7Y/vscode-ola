@@ -14,7 +14,7 @@ This extension provides syntax highlighting for `ola` language.
 
 ![snippets](https://github.com/Sin7Y/vscode-ola/blob/main/images/snippets.gif?raw=true)
 
-## Uasge
+## Usage
 
  - You can find this extension in vscode's extension marketplace and install it
  - Installation （Local Development）
