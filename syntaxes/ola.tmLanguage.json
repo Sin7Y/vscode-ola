@@ -20,8 +20,14 @@
 			"include": "#number"
 		},
 		{
+            "include": "#string"
+        },
+		{
 			"include": "#type"
 		},
+		{
+            "include": "#global"
+        },
 		{
 			"include": "#declaration"
 		},
@@ -58,6 +64,9 @@
 					"include": "#operator-logic"
 				},
 				{
+                    "include": "#operator-mapping"
+                },
+				{
 					"include": "#operator-arithmetic"
 				},
 				{
@@ -72,6 +81,10 @@
 			"match": "(==|<(?!<)|<=|>(?!>)|>=|\\&\\&|\\|\\||\\:(?!=)|\\?)",
 			"name": "keyword.operator.logic.ola"
 		},
+		"operator-mapping": {
+            "match": "(=>)",
+            "name": "keyword.operator.mapping.ola"
+        },
 		"operator-arithmetic": {
 			"match": "(\\+|\\-|\\/|\\*)",
 			"name": "keyword.operator.arithmetic.ola"
@@ -91,17 +104,24 @@
 				},
 				{
 					"include": "#control-import"
-				}
+				},
+				{
+                    "include": "#control-underscore"
+                }
 			]
 		},
 		"control-flow": {
-			"match": "\\b(if|else|for|break|continue|return?)\\b",
+			"match": "\\b(if|else|for|while|do|break|continue|return?)\\b",
 			"name": "keyword.control.flow.ola"
 		},
 		"control-import": {
 			"match": "\\b(import)\\b",
 			"name": "keyword.control.import.ola"
 		},
+		"control-underscore": {
+            "match": "\\b(_)\\b",
+            "name": "constant.other.underscore.ola"
+        },
 		"constant": {
 			"patterns": [
 				{
@@ -120,7 +140,14 @@
 				},
 				{
 					"include": "#number-hex"
+				},
+				{
+					"include": "#number-address"
+				},
+				{
+					"include": "#number-hash"
 				}
+
 			]
 		},
 		"number-decimal": {
@@ -131,6 +158,26 @@
 			"match": "\\b(0[xX][a-fA-F0-9]+)\\b",
 			"name": "constant.numeric.hexadecimal.ola"
 		},
+		"number-address": {
+			"match": "\\b(0[xX][a-fA-F0-9]+)address\\b",
+			"name": "constant.numeric.hexadecimal.ola"
+		},
+		"number-hash": {
+			"match": "\\b(0[xX][a-fA-F0-9]+)hash\\b",
+			"name": "constant.numeric.hexadecimal.ola"
+		},
+		"string": {
+            "patterns": [
+                {
+                    "match": "\\\".*?\\\"",
+                    "name": "string.quoted.double.ola"
+                },
+                {
+                    "match": "\\'.*?\\'",
+                    "name": "string.quoted.single.ola"
+                }
+            ]
+        },
 		"type": {
 			"patterns": [
 				{
@@ -139,9 +186,40 @@
 			]
 		},
 		"type-primitive": {
-			"match": "\\b(u\\d*|bool|field)\\b",
-			"name": "support.type.primitive.ola"
-		},
+            "match": "\\b(address|string\\d*|fields\\d*|field\\d*|u\\d*|bool|hash\\d*)\\b",
+            "name": "support.type.primitive.ola"
+        },
+		"global": {
+            "patterns": [
+                {
+                    "include": "#global-functions"
+                }
+            ]
+        },
+		"global-functions": {
+            "patterns": [
+                {
+                    "match": "\\b(assert)\\b",
+                    "name": "keyword.control.exceptions.ola"
+                },
+                {
+                    "match": "\\b(caller_address|origin_address|code_address|current_address)\\b",
+                    "name": "keyword.control.contract.ola"
+                },
+                {
+                    "match": "\\b(poseidon_hash|fields_concat)\\b",
+                    "name": "support.function.fields.ola"
+                },
+				{
+                    "match": "\\b(u32_sqrt|u32_array_sort)\\b",
+                    "name": "support.function.prophet.ola"
+                },
+                {
+                    "match": "\\b(chain_id|block_num)\\b",
+                    "name": "variable.language.transaction.ola"
+                }
+            ]
+        },
 		"declaration": {
 			"patterns": [
 				{
@@ -155,7 +233,10 @@
 				},
 				{
 					"include": "#declaration-function"
-				}
+				},
+				{
+                    "include": "#declaration-mapping"
+                }
 			]
 		},
 		"declaration-contract": {
@@ -210,6 +291,10 @@
 				}
 			]
 		},
+		"declaration-mapping": {
+            "match": "\\b(mapping)\\b",
+            "name": "storage.type.mapping.ola"
+        },
 		"function-call": {
 			"match": "\\b([A-Za-z_]\\w*)\\s*\\(",
 			"captures": {
